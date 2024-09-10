@@ -1,0 +1,5 @@
+{{#if @site.navigation}}
+    {{#foreach navigation}}
+        <a class="text-slate-500 font-bold text-gray-500 inline-flex items-center mr-2 px-1 pt-1 text-sm font-medium hover:text-slate-600" href="{{url}}">{{label}}</a>
+    {{/foreach}}
+{{/if}}

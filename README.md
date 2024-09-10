@@ -1,1 +1,1 @@
-# ghost_theme_tailwind
+# ghost_theme_tailwind css
