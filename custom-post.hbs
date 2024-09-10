@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="{{asset "assets/built/tailwind.css"}}">
+<link rel="stylesheet" href="{{asset "assets/built/screen.css"}}">
+<link rel="stylesheet" href="{{asset "assets/fonts/fonts.css"}}">
+<title>{{post.title}} - {{@site.title}}</title>
+{{> header}}
+
+
+<main class="max-w-4xl mx-auto p-6 mt-10">
+  <!-- Post Title -->
+    <h1 class="text-5xl font-medium font-serif text-gray-700 pr-52 text-left">{{post.title}}</h1>
+
+    <!-- Post Content -->
+    <div class="prose max-w-none mt-6 pr-40">
+        {{{post.html}}}
+    </div>
+
+    <div class="w-full flex justify-between gap-10">
+        <div class="mt-4 w-7/12">
+            <div class="post-metadata w-full">
+                <h2 class="text-2xl font-medium font-headings font-sans text-primary py-2 text-gray-600">Information</h2>
+                <div id="custom-metadata"></div>
+            </div>
+            <h2 class="text-2xl font-medium font-headings font-sans text-primary py-2 text-gray-600 mt-5">Facilitators</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li class="text-gray-700 border-b border-t py-2">Liam Kavanagh</li>
+                <li class="text-gray-700 border-b py-2">Jadzia Tedeschi</li>
+                <li class="text-gray-700 border-b py-2">Rupert Read</li>
+            </ul>
+            <h2 class="text-2xl font-medium font-headings font-sans text-primary py-2 text-gray-600 mt-5">Key Info</h2>
+            <div>
+                {{#if post.custom_excerpt}}
+                    <p class="custom-excerpt text-gray-700">
+                    {{post.custom_excerpt}}
+                    </p>
+                {{/if}}
+            </div>
+        </div>
+        
+        <!-- Post Feature Image -->
+        {{#if post.feature_image}}
+            <div class="mt-6 w-5/12">
+                <img src="{{post.feature_image}}" alt="{{post.title}}" class="w-full h-auto rounded-lg">
+            </div>
+        {{/if}}
+    </div>
+
+  <!-- Post Published Date -->
+  {{!-- <p class="text-gray-500 text-center mt-4">
+    Published on {{date post.published_at format="MMMM DD, YYYY"}}
+  </p> --}}
+
+
+
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const content = document.querySelector(".post-content").innerHTML;
+      const metadata = {};
+
+      content.replace(/<!--\s*([\w-]+):\s*(.*?)\s*-->/g, function(match, key, value) {
+        metadata[key] = value;
+      });
+
+      const metadataContainer = document.getElementById("custom-metadata");
+      if (metadataContainer) {
+        metadataContainer.innerHTML = `
+          <div class="space-y-2 text-sm">
+              <p class="text-gray-700 border-b border-t py-2 flex items-center justify-between font-medium"><span class='text-gray-500 font-medium'>Start Date:</span> ${metadata['start-date'] || 'N/A'}</p>
+              <p class="text-gray-700 border-b py-2 flex items-center justify-between font-medium"><span class='text-gray-500 font-medium'>End Date:</span> ${metadata['end-date'] || 'N/A'}</p>
+              <p class="text-gray-700 border-b py-2 flex items-center justify-between font-medium"><span class='text-gray-500 font-medium'>Location:</span> ${metadata['location'] || 'N/A'}</p>
+              <p class="text-gray-700 border-b py-2 flex items-center justify-between font-medium"><span class='text-gray-500 font-medium'>Cost:</span> ${metadata['cost'] || 'N/A'}</p>
+        </div>
+        `;
+      }
+    });
+  </script>
+</main>
+
+
+{{> footer}}
